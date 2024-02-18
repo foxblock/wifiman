@@ -524,7 +524,9 @@ void wifiman_print(WM_SharedData *data, HardwareSerial *output)
 WM_ReturnCode wifiman_getDisplayFilterByScan(WM_WifiNetworkDisplay networks[], uint8_t count)
 {
     assert(networks != nullptr);
-    assert(count > 0);
+
+    if (count == 0)
+        return WMRT_SUCCESS;
 
     auto scanResult = WiFi.scanComplete();
 
@@ -553,8 +555,9 @@ WM_ReturnCode wifiman_getDisplayFilterBySaved(WM_WifiNetworkDisplay networks[], 
         WM_WifiNetworkDisplay scanFilter[], uint8_t scanCount)
 {
     assert(networks != nullptr);
-    assert(count > 0);
 
+    if (count == 0)
+        return WMRT_SUCCESS;
     if (count < _wifiman_data->length)
         return WMRT_SIZE_MISMATCH;
 
